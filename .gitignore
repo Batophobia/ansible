@@ -1,5 +1,6 @@
 */*
 *.pem
+vm_rsa*
 
 # Explicit includes
 !Playbooks/*

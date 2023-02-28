@@ -1,0 +1,14 @@
+# LOCAL COMMAND EXAMPLE - Push file/folder to vm
+scp Playbooks/webserver.yml osboxes@10.0.0.44:~/webtest
+
+# Start docker
+sudo systemctl start docker
+
+# Launch docker image as pseudo-VM
+docker run -it -d mmumshad/ubuntu-ssh-enabled
+
+# Get Docker processes
+docker ps
+# Get IP for the VM process
+	docker inspect XX # XX == first 2 char of containerID (from ps command)
+# IP should be 172.17.0.X (2, 3, 4, ...)
