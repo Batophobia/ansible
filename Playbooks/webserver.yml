@@ -13,6 +13,11 @@
       - python3-dev
       - build-essential
       - python3-pip
+  #- name: Upgrade pip
+  #  pip:
+  #    name: pip
+  #    extra_args: --upgrade
+  #    executable: pip3
   - name: Install MySQL
     apt:
       name: "{{ item }}"
@@ -20,6 +25,14 @@
     loop:
       - mysql-server
       - mysql-client
+  - name: Install MySQL Python dependencies
+    pip:
+      name: "{{ item }}"
+      state: present
+      executable: pip3
+    loop:
+      - PyMySQL
+      - MySQL-python
   - name: Start DB
     service:
       name: mysql
@@ -46,6 +59,6 @@
   - name: Copy app code
     copy:
       src: testApp.py
-      dest: /otp/app.py
+      dest: /opt/app.py
   - name: Start app
     shell: FLASK_APP=/opt/app.py nohup flask run --hots=0.0.0.0 &
