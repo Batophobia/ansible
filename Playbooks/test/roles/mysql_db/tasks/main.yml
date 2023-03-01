@@ -10,6 +10,7 @@
     name: "{{ item }}"
     state: present
     executable: pip2
+  ignore_errors: yes
   loop:
     - PyMySQL
     - MySQL-python
@@ -18,10 +19,12 @@
     name: mysql
     state: started
     enabled: yes
+  ignore_errors: yes
 - name: Create DB
   mysql_db:
     name: "{{ db_name }}"
     state: present
+  ignore_errors: yes
 - name: Create DB User
   mysql_user:
     name: "{{ db_user }}"
@@ -29,3 +32,4 @@
     priv: '*.*:ALL'
     state: present
     host: '%'
+  ignore_errors: yes
