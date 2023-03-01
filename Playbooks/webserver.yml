@@ -1,64 +1,18 @@
 -
-  name: Spin up Python web server
-  hosts: vm*
+  name: Testing Loops
+  hosts: all
+  vars:
+    ip1:
+      - 192.168.1.1
+      - 192.168.1.2
+      - 192.168.1.3
+    ip2:
+      - 10.0.0.1
+      - 10.0.0.2
   tasks:
-  - name: Install dependencies
-    apt:
-      name: "{{ item }}"
-      update_cache: yes
-      state: present
+  - name: Testing
+    debug:
+      msg: "{{ item }}"
     loop:
-      - python3
-      - python3-setuptools
-      - python3-dev
-      - build-essential
-      - python3-pip
-  #- name: Upgrade pip
-  #  pip:
-  #    name: pip
-  #    extra_args: --upgrade
-  #    executable: pip3
-  - name: Install MySQL
-    apt:
-      name: "{{ item }}"
-      state: present
-    loop:
-      - mysql-server
-      - mysql-client
-  - name: Install MySQL Python dependencies
-    pip:
-      name: "{{ item }}"
-      state: present
-      executable: pip3
-    loop:
-      - PyMySQL
-      - MySQL-python
-  - name: Start DB
-    service:
-      name: mysql
-      state: started
-      enabled: yes
-  - name: Create DB
-    mysql_db:
-      name: employee_db
-      state: present
-  - name: Create DB User
-    mysql_user:
-      name: db_user
-      password: Passw0rd
-      priv: '*.*:ALL'
-      state: present
-      host: '%'
-  - name: Install Flask
-    pip:
-      name: "{{ item }}"
-      state: present
-    loop:
-      - flask
-      - flask-mysql
-  - name: Copy app code
-    copy:
-      src: testApp.py
-      dest: /opt/app.py
-  - name: Start app
-    shell: FLASK_APP=/opt/app.py nohup flask run --hots=0.0.0.0 &
+      - "{{ ip1 }}"
+      - "{{ ip2 }}"
