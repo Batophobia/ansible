@@ -1,0 +1,13 @@
+- name: Install Flask
+  pip:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - flask
+    - flask-mysql
+- name: Copy app code
+  copy:
+    src: testApp.py
+    dest: /opt/app.py
+- name: Start app
+  shell: FLASK_APP=/opt/app.py nohup flask run --hots=0.0.0.0 &

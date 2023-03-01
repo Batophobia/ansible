@@ -1,0 +1,22 @@
+-
+  name: Spin up Python web server
+  hosts: vms
+  tasks:
+  - name: Install dependencies
+    apt:
+      name: "{{ item }}"
+      update_cache: yes
+      state: present
+    loop:
+      - python
+      - python-setuptools
+      - python-dev
+      - build-essential
+      - python-pip
+      - python-mysqldb
+  - name: Upgrade pip
+    pip:
+      name: pip
+      extra_args: --upgrade
+  - include: tasks/db.yml
+  - include: tasks/webserver.yml
