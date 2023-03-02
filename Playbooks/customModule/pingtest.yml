@@ -1,0 +1,7 @@
+-
+  name: Ping target servers
+  hosts: all
+  tasks:
+  - name: Custom module test
+    custom_debug:
+      msg: 'Hello World'
