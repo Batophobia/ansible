@@ -1,0 +1,13 @@
+-
+  name: Test playbook
+  hosts: localhost
+  vars:
+    marks:
+      - 10
+      - 30
+      - 20
+      - 25
+  tasks:
+  - name: Custom filter test
+    debug:
+      msg: '{{ marks | average }}'
