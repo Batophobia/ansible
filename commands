@@ -12,3 +12,11 @@ docker ps
 # Get IP for the VM process
 	docker inspect XX # XX == first 2 char of containerID (from ps command)
 # IP should be 172.17.0.X (2, 3, 4, ...)
+
+# Vault - Encryption
+ansible-vault encrypt inventory.txt # Encrypt file, uses password
+ansible-playbook playbook.yml -i inventory.txt -ask-vault-pass # Use encrypted file, asking for password
+ansible-playbook playbook.yml -i inventory.txt -vault-password-file ~./vaultPassword.txt # Use encrypted file, using password from a file
+ansible-playbook playbook.yml -i inventory.txt -vault-password-file ~./vaultPassword.py # Use encrypted file, using script to get password
+ansible-vault view [file name] # View encrypted file
+ansible-vault create [file name] # create encrypted file
