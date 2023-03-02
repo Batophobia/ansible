@@ -1,0 +1,11 @@
+-
+  name: Ping target servers
+  hosts: all
+  vars:
+    # CSV version
+    ansible_ssh_pass: "{{ lookup('csvfile', 'vm file=vms.csv delimiter=,') }}"
+    # INI version
+    #ansible_ssh_pass: "{{ lookup('ini', 'password section=vm1 file=vms.ini') }}"
+  tasks:
+  - name: Ping test
+    ping:
