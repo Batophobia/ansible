@@ -1,0 +1,10 @@
+-
+  name: Testing for EJ
+  hosts: localhost
+  tasks:
+  - name: Test var 1
+    debug:
+      msg: "{{ env }} - {{ db_user }} - {{ db_pass }}"
+  - name: Test var 2
+    debug:
+      msg: "{{ dev_env }} - {{ web_user }} - {{ pass }}"
