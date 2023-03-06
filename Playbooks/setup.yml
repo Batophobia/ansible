@@ -1,0 +1,11 @@
+-
+  name: Setup VM containers
+  hosts: localhost
+  tasks:
+  - name: Start Docker
+    systemd:
+      state: started
+      name: docker
+  - name: Spin up VM containers
+    command: docker run -it -d mmumshad/ubuntu-ssh-enabled
+    with_sequence: count=2

@@ -1,10 +1,14 @@
 -
   name: Testing for EJ
   hosts: localhost
+  vars:
+    helm_chart_url: "https://charts.bitnami.com/bitnami"
   tasks:
-  - name: Test var 1
-    debug:
-      msg: "{{ env }} - {{ db_user }} - {{ db_pass }}"
-  - name: Test var 2
-    debug:
-      msg: "{{ dev_env }} - {{ web_user }} - {{ pass }}"
+    - name: Install helm
+      yum:
+        name: helm
+        state: present
+    - name: Add helm repo
+      kubernetes.core.helm_repository:
+        name: bitnami
+        repo_url: "{{ helm_chart_url }}"
