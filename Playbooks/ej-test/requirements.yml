@@ -1,0 +1,4 @@
+- src: https://github.com/avinetworks/ansible-role-avisdk.git
+  version: "eng"
+  scm: git
+  name: pst-ar-avi-avisdk
