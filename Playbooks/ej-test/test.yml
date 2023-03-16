@@ -5,6 +5,7 @@
       wait_for: 
         port: 22
         host: "{{ item }}"
+        timeout: 1430
       loop:
         - 172.17.0.2
         - 172.17.0.3
