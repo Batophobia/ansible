@@ -1,8 +1,10 @@
 - name: Testing for EJ
   hosts: localhost
   tasks:
-    - name: Ansible Galaxy test
-      command: ansible-galaxy install -r requirements.yml -v
-    - name: Module Test
-      avi_authmappingprofile:
-        msg: test
+    - name: Wait test
+      wait_for: 
+        port: 22
+        host: 172.17.0.2
+    - name: After wait
+      debug:
+        msg: Wait ended
