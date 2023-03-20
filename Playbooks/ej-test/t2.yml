@@ -1,0 +1,3 @@
+- name: Loop test
+  debug:
+    msg: Test 2
