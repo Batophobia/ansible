@@ -6,3 +6,7 @@
       loop:
         - t1.yml
         - t2.yml
+    - name: Fail 
+      fail:
+        msg: This is failure text
+      ignore_errors: true
