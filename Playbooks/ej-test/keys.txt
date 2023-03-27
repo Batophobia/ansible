@@ -1,0 +1,11 @@
+Recovery Key 1: key1value7klas38io4
+Recovery Key 2: key2value4oianjreg
+Recovery Key 3: key3value8pkoiajr98af
+Recovery Key 4: key4value3opioiempoamgi[osaerf]
+Recovery Key 5: key5value1pom9+034i398428*
+
+Initial Root Token: hvs.hbriuanufaiu
+
+Succuess! Vault it initialized
+
+Recovery key initialized with 5 key shares and a key threshold of 3. please uef iuefw fbfoiuwbe

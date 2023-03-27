@@ -1,12 +1,19 @@
 - name: Testing for EJ
   hosts: localhost
+  vars:
+    keys: "{{ lookup('file', 'keys.txt') }}"
   tasks:
-    - name: Touch test
-      include_tasks: "{{ item }}"
-      loop:
-        - t1.yml
-        - t2.yml
-    - name: Fail 
-      fail:
-        msg: This is failure text
-      ignore_errors: true
+    - name: Parse test (Recovery)
+      set_fact:
+        recovery_keys: "{{ keys | regex_findall('\\d:\\s+([^\\r]+)', '\\1') }}"
+    - name: Parse test (Root Token)
+      set_fact:
+        root_token: "{{ keys | regex_search('Token:\\s+([^\\r]+)', '\\1') }}"
+    - name: Parse test (Recovery)
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ recovery_keys }}"
+    - name: Parse test (Root Token)
+      debug:
+        msg: "{{ root_token }}"
+      
