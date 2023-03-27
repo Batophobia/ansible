@@ -1,0 +1,6 @@
+name    TYPE         CLUSTER-IP      EXTERNAL-IP   PORT(S)               AGE
+asdf    NodePort     10.000.0.06     <none>        8200:65484/TCP        10m
+qwerty  NodePort     10.010.0.16     <none>        8200/TCP,8426/TCP     10m
+poiwero ClusterIP    10.100.0.26     <none>        8200:84/TCP           10m
+psujr   NodePort     10.002.0.36     <none>        8200:8462/TCP         10m
+muxed   LoadBalancer 10.040.0.46     15.005.0.06   8200:/                10m
