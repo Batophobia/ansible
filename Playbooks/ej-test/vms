@@ -1,5 +1,5 @@
-vm1 ansible_host=172.17.0.2 ansible_ssh_pass=Passw0rd
-vm2 ansible_host=172.17.0.3 ansible_ssh_pass=Passw0rd
+vm1 ansible_host=10.10.10.2 ansible_ssh_pass=Passw0rd
+vm2 ansible_host=10.10.10.3 ansible_ssh_pass=Passw0rd
 
 [vms]
 vm1
