@@ -1,5 +1,25 @@
 - name: Testing for EJ
   hosts: localhost
   tasks:
-    - name: collection test
-      command: ansible-galaxy install -r req.yml -v
+    - name: Install community collection
+      command: ansible-galaxy install -r req.yml
+    - name: Add host
+      add_host:
+        hostname: 10.0.0.37
+        ansible_connection: ssh
+        ansible_user: osboxes
+        ansible_password: osboxes.org
+        ansible_sudo_pass: osboxes.org
+    - name: timezone test
+      timezone:
+        name: America/Chicago
+      become: yes
+      delegate_to: 10.0.0.37
+    - name: reboot test
+      reboot:
+      become: yes
+      delegate_to: 10.0.0.37
+    - name: debug test
+      debug:
+        msg: "End of Playbook"
+      delegate_to: 10.0.0.37
