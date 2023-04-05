@@ -12,15 +12,22 @@
         ansible_user: osboxes
         ansible_password: osboxes.org
         ansible_sudo_pass: osboxes.org
+    - name: env test
+      debug:
+        msg: "'{{ ansible_env.HOSTNAME }}'"
+      delegate_to: "{{ ip }}"
+    - name: env test
+      debug:
+        msg: "'{{ ansible_env.HOSTNAME }}'"
     - name: timezone test
       community.general.timezone:
         name: America/Chicago
       become: yes
       delegate_to: "{{ ip }}"
-    - name: reboot test
-      reboot:
-      become: yes
-      delegate_to: "{{ ip }}"
+    #- name: reboot test
+    #  reboot:
+    #  become: yes
+    #  delegate_to: "{{ ip }}"
     - name: debug test
       debug:
         msg: "End of Playbook"
