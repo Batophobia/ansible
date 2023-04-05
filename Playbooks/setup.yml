@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
   - name: Start Docker
-    systemd:
+    service:
       state: started
       name: docker
   - name: Spin up VM containers
