@@ -1,34 +1,11 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    ip: 10.0.0.37
+    tmp:
+      - "qwer 8520"
+      - "zxcv 13974"
   tasks:
-    - name: Install community collection
-      command: ansible-galaxy install -r req.yml
-    - name: Add host
-      add_host:
-        hostname: "{{ ip }}"
-        ansible_connection: ssh
-        ansible_user: osboxes
-        ansible_password: osboxes.org
-        ansible_sudo_pass: osboxes.org
-    - name: env test
-      debug:
-        msg: "'{{ ansible_env.HOSTNAME }}'"
-      delegate_to: "{{ ip }}"
-    - name: env test
-      debug:
-        msg: "'{{ ansible_env.HOSTNAME }}'"
-    - name: timezone test
-      community.general.timezone:
-        name: America/Chicago
-      become: yes
-      delegate_to: "{{ ip }}"
-    #- name: reboot test
-    #  reboot:
-    #  become: yes
-    #  delegate_to: "{{ ip }}"
-    - name: debug test
-      debug:
-        msg: "End of Playbook"
-      delegate_to: "{{ ip }}"
+    - name: join test
+      copy:
+        dest: "tst.txt"
+        content: "{{ tmp | join('\n') }}"
