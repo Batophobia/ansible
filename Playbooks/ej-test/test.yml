@@ -2,10 +2,10 @@
   hosts: localhost
   vars:
     tmp:
-      - "qwer 8520"
-      - "zxcv 13974"
+      - "8520"
+      - "13974"
   tasks:
     - name: join test
       copy:
         dest: "tst.txt"
-        content: "{{ tmp | join('\n') }}"
+        content: "{{ ['ns '] | product(tmp) | map('join') | list | join('\n') }}"
