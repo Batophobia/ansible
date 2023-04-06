@@ -1,11 +1,12 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    tmp:
-      - "8520"
-      - "13974"
+    tmp: "8520"
   tasks:
     - name: join test
       copy:
         dest: "tst.txt"
-        content: "{{ ['ns '] | product(tmp) | map('join') | list | join('\n') }}"
+        content: |
+          var1=1234
+          var2="{{tmp}}"
+          var3=09877
