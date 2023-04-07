@@ -1,0 +1,7 @@
+- name: DEBUGGING
+  debug:
+    msg: This is the testing role
+- name: template test
+  template:
+    src: tst.txt.j2
+    dest: ./tst.txt
