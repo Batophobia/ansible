@@ -1,8 +1,14 @@
 - name: Testing for EJ
   hosts: localhost
-  tasks:
-    - name: template test
-      include_role:
-        name: testing
-      vars:
-        isTrue: True
+  vars_prompt:
+    - name: id
+      prompt: What is your ID?
+      private: false
+    - name: pass
+      prompt: What is your password?
+  environment:
+    TEST: "{{ id }}"
+  per_tasks:
+    - name: Input test
+      debug:
+        msg: "{{ id }} - {{ pass }} - {{ TEST }}"
