@@ -22,8 +22,8 @@
       timeout: 5
       command: scp /home/osboxes/expect osboxes@10.0.0.8:~/expect
       responses:
-        (.*)continue connecting(.*): "y"
-        (.*)type(.*): "yes"
+        (.*)fingerprint]\): "y"
+        (.*)fingerprint: "yes"
         (.*)password(.*): osboxes.org
     delegate_to: "{{ vm }}"
     become: yes
