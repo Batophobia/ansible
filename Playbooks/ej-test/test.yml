@@ -1,14 +1,29 @@
 - name: Testing for EJ
   hosts: localhost
-  vars_prompt:
-    - name: id
-      prompt: What is your ID?
-      private: false
-    - name: pass
-      prompt: What is your password?
-  environment:
-    TEST: "{{ id }}"
-  per_tasks:
-    - name: Input test
-      debug:
-        msg: "{{ id }} - {{ pass }} - {{ TEST }}"
+  vars:
+    vm: 10.0.0.37
+  tasks:
+  - name: Add Host
+    add_host:
+      hostname: "{{ vm }}"
+      ansible_connection: ssh
+      ansible_user: osboxes
+      ansible_password: osboxes.org
+      ansible_sudo_pass: osboxes.org
+  - name: Remove Host
+    known_hosts:
+      name: 10.0.0.8
+      state: absent
+    delegate_to: "{{ vm }}"
+    become: yes
+  - name: Expect test
+    expect:
+      echo: yes
+      timeout: 5
+      command: scp /home/osboxes/expect osboxes@10.0.0.8:~/expect
+      responses:
+        (.*)continue connecting(.*): "y"
+        (.*)type(.*): "yes"
+        (.*)password(.*): osboxes.org
+    delegate_to: "{{ vm }}"
+    become: yes
