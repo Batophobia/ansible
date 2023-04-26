@@ -1,29 +1,22 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    vm: 10.0.0.37
+    val: boi
   tasks:
+  - name: Set vals
+    command: echo 
+    register: vals
+  - name: Set value
+    set_fact:
+      vals: "{{ vals.stdout }}"
+  - name: see vals
+    debug:
+      msg: "{{ vals }}"
   - name: Add Host
-    add_host:
-      hostname: "{{ vm }}"
-      ansible_connection: ssh
-      ansible_user: osboxes
-      ansible_password: osboxes.org
-      ansible_sudo_pass: osboxes.org
-  - name: Remove Host
-    known_hosts:
-      name: 10.0.0.8
-      state: absent
-    delegate_to: "{{ vm }}"
-    become: yes
-  - name: Expect test
-    expect:
-      echo: yes
-      timeout: 5
-      command: scp /home/osboxes/expect osboxes@10.0.0.8:~/expect
-      responses:
-        (.*)fingerprint]\): "y"
-        (.*)fingerprint: "yes"
-        (.*)password(.*): osboxes.org
-    delegate_to: "{{ vm }}"
-    become: yes
+    debug:
+      msg: "MISS"
+    when: '(val|string) not in vals'
+  - name: Add Host
+    debug:
+      msg: "HIT"
+    when: '(val|string) in vals'
