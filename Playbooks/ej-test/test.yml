@@ -1,22 +1,16 @@
 - name: Testing for EJ
   hosts: localhost
+  vars_prompt:
+    - name: test_var
+      prompt: Enter Value
+  environment:
+    ENV_VAR: "{{ test_var }}"
   vars:
-    val: boi
+    val: "{{ test_var }}"
   tasks:
-  - name: Set vals
-    command: echo 
-    register: vals
-  - name: Set value
-    set_fact:
-      vals: "{{ vals.stdout }}"
-  - name: see vals
+  - name: val test (works)
     debug:
-      msg: "{{ vals }}"
-  - name: Add Host
+      msg: "{{ val }}"
+  - name: ENV_VAR test (breaks)
     debug:
-      msg: "MISS"
-    when: '(val|string) not in vals'
-  - name: Add Host
-    debug:
-      msg: "HIT"
-    when: '(val|string) in vals'
+      msg: "{{ ENV_VAR }}"
