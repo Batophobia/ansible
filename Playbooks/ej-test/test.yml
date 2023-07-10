@@ -1,17 +1,13 @@
 - name: Testing for EJ
   hosts: localhost
-  vars_prompt:
-    - name: test_var
-      prompt: Enter Value
-  environment:
-    ENV_VAR: "{{ test_var }}"
   vars:
-    val: "{{ test_var }}"
-
+    testvar: someval
+  
   tasks:
-  - name: val test (works)
+  - name: bash test
+    command: /bin/sh ./test.sh {{testvar}}
+    register: output
+  
+  - name: DEBUG
     debug:
-      msg: "{{ val }}"
-  - name: ENV_VAR test (breaks)
-    debug:
-      msg: "{{ ENV_VAR }}"
+      msg: "{{output.stdout}}"
