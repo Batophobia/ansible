@@ -1,13 +1,17 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    testvar: someval
+    testvar: This wi"th 'SINGLE' quotes
   
   tasks:
-  - name: bash test
-    command: /bin/sh ./test.sh {{testvar}}
-    register: output
+  - name: DEBUG
+    debug:
+      msg: "{{testvar}}"
+
+  - name: Replace test
+    set_fact:
+      othervar: "{{testvar | string | replace(\"'\", '\"')}}"
   
   - name: DEBUG
     debug:
-      msg: "{{output.stdout}}"
+      msg: "{{othervar}}"
