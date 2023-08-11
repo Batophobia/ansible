@@ -10,8 +10,17 @@
 
   - name: Replace test
     set_fact:
-      othervar: "{{testvar | string | replace(\"'\", '\"')}}"
+      names: "{{ names | default([]) + [item | string | replace(\"'\", '\"')] }}"
+    with_sequence: start=1 end=4 format=test%02x
   
   - name: DEBUG
     debug:
-      msg: "{{othervar}}"
+      msg: "{{ names }}"
+  
+  - name: Template testing
+    template:
+      src: "{{ item }}"
+      dest: "tst.txt"
+    with_fileglob:
+      - "tst.txt.j2"
+    
