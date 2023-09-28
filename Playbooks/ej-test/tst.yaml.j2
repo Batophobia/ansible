@@ -3,5 +3,9 @@ a:
     c: "{{ testvar1 }}" #COMMENT
   d: |
     z = blah
+    {% raw %}
+    yR = {{ testvar2 }}
+    yL = {{ testvar2 }}
+    {% endraw %}
     y = {{ testvar2 }}
     x = "{{ testvar3 }}"
