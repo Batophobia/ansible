@@ -1,13 +1,22 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    testvar1: asdf
-    testvar2: qwer
-    testvar3: zxcv
+    testvar:
+      - name: c1
+        a: c1
+        b: c1
+      - name: c2
+        a: c1
+        b: c2
+      - name: c3
+        a: c1
+        b: c2
+      - name: c4
+        a: 
+        b: c2
   
   tasks:
-  - name: Template testing
-    template:
-      src: tst.yaml.j2
-      dest: tst.yaml
+  - name: Var testing
+    include_tasks: "t1.yml"
+    loop: "{{ testvar }}"
     
