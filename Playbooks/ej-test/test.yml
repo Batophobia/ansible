@@ -1,22 +1,26 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    testvar:
-      - name: c1
-        a: c1
-        b: c1
-      - name: c2
-        a: c1
-        b: c2
-      - name: c3
-        a: c1
-        b: c2
-      - name: c4
-        a: 
-        b: c2
+    test:
+      asdf-1234:
+        j: aa
+      zxyw-9876:
+        j: zz
+      fhgd-0258:
+        j: jj
+    test2:
+      p: asdf-1234
+      c:
+        - zxyw-9876
+        - fhgd-0258
   
   tasks:
   - name: Var testing
-    include_tasks: "t1.yml"
-    loop: "{{ testvar }}"
-    
+    include_tasks: "t2.yml"
+    loop: "{{ lookup('dict', test) }}"
+    loop_control:
+      index_var: my_idx
+  
+  - name: Var testing
+    debug:
+      msg: "{{ test[test2.p] }}"

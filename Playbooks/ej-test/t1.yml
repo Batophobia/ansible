@@ -1,15 +1,30 @@
-- name: Item value
+- name: Getting value for...
   debug:
-    msg: "{{ item }}"
+    msg: "{{ item.key }}"
+  
+- block:
+  - name: Set temp var
+    set_fact:
+      temp_test:
+          j: "{{ item.value.j }}"
+          i: "{{ my_idx }}"
 
-- name: Item value - name
-  debug:
-    msg: "{{ item.name }}"
 
-- name: Item value - a
-  debug:
-    msg: "{{ item.a }}"
+  - name: Update dict
+    set_fact:
+      test: "{{ test | combine( { {{ item.key }}: temp_test } ) }}"
 
-- name: Item value - b
+#  - name: Get from Other
+#    set_fact:
+#      test: "{{ test | combine( { {{ item.key }}: my_idx } ) }}"
+
+
+  when: "'{{ item.value.i }}' == ''"
+
+- name: Get from Dictionary
+  set_fact:
+    cluster_ip: "{{ test[item.key] }}"
+
+- name: New Value
   debug:
-    msg: "{{ item.b }}"
+    msg: "{{ test }}"
