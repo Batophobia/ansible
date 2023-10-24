@@ -1,26 +1,13 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    test:
-      asdf-1234:
-        j: aa
-      zxyw-9876:
-        j: zz
-      fhgd-0258:
-        j: jj
-    test2:
-      p: asdf-1234
-      c:
-        - zxyw-9876
-        - fhgd-0258
+    test: "this is  a     string"
   
   tasks:
   - name: Var testing
-    include_tasks: "t2.yml"
-    loop: "{{ lookup('dict', test) }}"
-    loop_control:
-      index_var: my_idx
-  
+    debug:
+      msg: "{{ test }}"
+
   - name: Var testing
     debug:
-      msg: "{{ test[test2.p] }}"
+      msg: "{{ test.split()[3] }}"
