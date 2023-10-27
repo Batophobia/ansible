@@ -1,13 +1,9 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    test: "this is  a     string"
+    test: "name test"
   
   tasks:
-  - name: Var testing
+  - name: Var {{ test }} testing
     debug:
       msg: "{{ test }}"
-
-  - name: Var testing
-    debug:
-      msg: "{{ test.split()[3] }}"
