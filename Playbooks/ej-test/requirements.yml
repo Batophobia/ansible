@@ -1,4 +1,3 @@
-- src: https://github.com/avinetworks/ansible-role-avisdk.git
-  version: "eng"
-  scm: git
-  name: pst-ar-avi-avisdk
+collections:
+  - name: vmware.alb
+    version: 22.1.4

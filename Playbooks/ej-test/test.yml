@@ -4,6 +4,13 @@
     test: "name test"
   
   tasks:
-  - name: Var {{ test }} testing
+  - name: Galaxy version testing
+    command: ansible-galaxy install -r requirements.yml -v
+
+  - name: Version check
+    command: ansible-galaxy collection list
+    register: otpt
+  
+  - name: Version Check
     debug:
-      msg: "{{ test }}"
+      msg: "{{ otpt.stdout }}"
