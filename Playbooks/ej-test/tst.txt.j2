@@ -1,1 +1,5 @@
-for_each = {{ names }}
+{% if tstVar | default(false) %}
+TRUE
+{% else %}
+FALSE
+{% endif %}

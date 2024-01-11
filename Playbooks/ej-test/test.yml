@@ -1,16 +1,10 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    test: "name test"
+    tstVar: false
   
   tasks:
-  - name: Galaxy version testing
-    command: ansible-galaxy install -r requirements.yml -v
-
-  - name: Version check
-    command: ansible-galaxy collection list
-    register: otpt
-  
-  - name: Version Check
-    debug:
-      msg: "{{ otpt.stdout }}"
+  - name: Template test
+    template:
+      src: tst.txt.j2
+      dest: tst.txt
