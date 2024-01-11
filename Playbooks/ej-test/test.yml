@@ -1,7 +1,8 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    tstVar: false
+    tstVar: true
+    test: 'ASD[^\.\_].*'
   
   tasks:
   - name: Template test
