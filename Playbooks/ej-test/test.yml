@@ -1,11 +1,22 @@
 - name: Testing for EJ
   hosts: localhost
   vars:
-    tstVar: true
-    test: 'ASD[^\.\_].*'
+    tstVar:
+      src: tst.txt
+      dest: new.txt
+    extraVars:
+      mode: 01777
   
   tasks:
-  - name: Template test
-    template:
-      src: tst.txt.j2
-      dest: tst.txt
+  - name: Before
+    debug:
+      msg: "{{tstVar}}"
+  - name: Change
+    set_fact:
+      tstVar: "{{ tstVar | combine(extraVars) }}"
+  - name: After
+    debug:
+      msg: "{{tstVar}}"
+  - name: Copy
+    copy:
+      "{{tstVar}}"
