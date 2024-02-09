@@ -8,15 +8,27 @@
       mode: 01777
   
   tasks:
-  - name: Before
-    debug:
-      msg: "{{tstVar}}"
-  - name: Change
+  - name: Read first JSON file
     set_fact:
-      tstVar: "{{ tstVar | combine(extraVars) }}"
-  - name: After
+      file1: "{{ lookup('file','./tst1.json') | from_json }}"
+  - name: Read second JSON file
+    set_fact:
+      file2: "{{ lookup('file','./tst2.json') | from_json }}"
+  - name: File 1
     debug:
-      msg: "{{tstVar}}"
-  - name: Copy
-    copy:
-      "{{tstVar}}"
+      msg: "{{ file1 }}"
+  - name: File 2
+    debug:
+      msg: "{{ file2 }}"
+  - name: Naive combine
+    set_fact:
+      naive: "{{ file1 + file2 }}"
+  - name: Naive variable
+    debug:
+      msg: "{{ naive }}"
+  - name: Full combine
+    set_fact:
+      full: "{{ file1 | community.general.lists_mergeby(file2, 'cgn', list_merge='append') }}"
+  - name: Full variable
+    debug:
+      msg: "{{ full }}"
