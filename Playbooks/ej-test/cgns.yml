@@ -1,0 +1,40 @@
+- name: Initialize elem list
+  set_fact:
+    new_el: []
+
+- name: Loop through first entry elements
+  include_tasks: els.yml
+  loop: "{{ cgn.el }}"
+  loop_control:
+    loop_var: elem
+
+- name: Check if entry is in file_2
+  debug:
+    msg: "{{ cgn.cgn }} in file_2"
+  when: cgn.cgn in (file_2 | map(attribute='cgn') )
+
+- name: Pull secondary cgn
+  ansible.builtin.set_fact:
+    cgn2_idx: "{{ lookup('ansible.utils.index_of', file_2, 'eq', '{{ cgn.cgn }}', 'cgn') }}"
+
+- name: Loop through second entry elements
+  include_tasks: els.yml
+  loop: "{{ file_2[cgn2_idx | int].el }}"
+  loop_control:
+    loop_var: elem
+  when: cgn2_idx | length > 0
+
+- name: Remove cgn from secondary list
+  set_fact:
+    file_2: "{{ file_2 | difference([file_2[cgn2_idx | int]]) }}"
+  when: cgn2_idx | length > 0
+
+- name: Set new cgn
+  set_fact:
+    new_cgn:
+      cgn: "{{ cgn.cgn }}"
+      el: "{{ new_el }}"
+
+- name: Add cgn to full
+  set_fact:
+    full: "{{ full + [ new_cgn ] }}"

@@ -14,21 +14,18 @@
   - name: Read second JSON file
     set_fact:
       file2: "{{ lookup('file','./tst2.json') | from_json }}"
-  - name: File 1
+  - name: Versions
     debug:
-      msg: "{{ file1 }}"
-  - name: File 2
-    debug:
-      msg: "{{ file2 }}"
-  - name: Naive combine
-    set_fact:
-      naive: "{{ file1 + file2 }}"
-  - name: Naive variable
-    debug:
-      msg: "{{ naive }}"
-  - name: Full combine
+      msg: "Ansible: {{ ansible_version.full }} - utils: {{ lookup('community.general.collection_version', 'ansible.utils') }} - general: {{ lookup('community.general.collection_version', 'community.general') }}"
+  - name: Full combine (ansible >= 2.10)
     set_fact:
       full: "{{ file1 | community.general.lists_mergeby(file2, 'cgn', list_merge='append') }}"
+    when: "ansible_version.full is version_compare('2.10', '>=')"
+
+  - name: Full combine
+    include_tasks: combine.yml
+    when: "ansible_version.full is version_compare('2.10', '<')"
+
   - name: Full variable
     debug:
       msg: "{{ full }}"

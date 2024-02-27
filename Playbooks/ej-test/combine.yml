@@ -1,0 +1,27 @@
+- name: Initialize full variable
+  set_fact:
+    full: []
+
+- name: Volatile variable for second file
+  set_fact:
+    file_2: "{{ file2 }}"
+
+- name: Loop through first list
+  include_tasks: cgns.yml
+  loop: "{{ file1 }}"
+  loop_control:
+    loop_var: cgn
+
+- name: Loop variable for remaining entries
+  set_fact:
+    file_list: "{{ file_2 }}"
+
+- name: Clear variable for second file
+  set_fact:
+    file_2: []
+
+- name: Loop through remaining second list
+  include_tasks: cgns.yml
+  loop: "{{ file_list }}"
+  loop_control:
+    loop_var: cgn
