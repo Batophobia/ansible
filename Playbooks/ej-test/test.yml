@@ -10,16 +10,16 @@
   tasks:
   - name: Read first JSON file
     set_fact:
-      file1: "{{ lookup('file','./tst1.json') | from_json }}"
+      uni: "{{ lookup('file','./tst1.json') | from_json }}"
   - name: Read second JSON file
     set_fact:
-      file2: "{{ lookup('file','./tst2.json') | from_json }}"
+      cust: "{{ lookup('file','./tst2.json') | from_json }}"
   - name: Versions
     debug:
       msg: "Ansible: {{ ansible_version.full }} - utils: {{ lookup('community.general.collection_version', 'ansible.utils') }} - general: {{ lookup('community.general.collection_version', 'community.general') }}"
   - name: Full combine (ansible >= 2.10)
     set_fact:
-      full: "{{ file1 | community.general.lists_mergeby(file2, 'cgn', list_merge='append') }}"
+      full: "{{ uni | community.general.lists_mergeby(cust, 'name', list_merge='append') }}"
     when: "ansible_version.full is version_compare('2.10', '>=')"
 
   - name: Full combine

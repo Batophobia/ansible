@@ -1,33 +1,17 @@
 [
   {
-    "cgn": "41X",
-    "el": [
+    "name": "41X",
+    "list": [
       {
-        "me": "XS",
-        "mec": {
-          "mc": "I",
-          "mo": "R"
-        },
-        "umc": {
-          "mc": "I",
-          "mo": "E"
-        }
+        "inside": "u"
       }
     ]
   },
   {
-    "cgn": "42S",
-    "el": [
+    "name": "42S",
+    "list": [
       {
-        "me": "SQ",
-        "mec": {
-          "mc": "I",
-          "mo": "E"
-        },
-        "umc": {
-          "mc": "I",
-          "mo": "E"
-        }
+        "inside": "n"
       }
     ]
   }

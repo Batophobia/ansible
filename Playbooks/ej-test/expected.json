@@ -1,60 +1,71 @@
 [
   {
-    "cgn": "41X",
-    "el": [
+    "name": "41X",
+    "list": [
       {
-        "me": "XS",
-        "mec": {
-          "mc": "I",
-          "mo": "R"
-        },
-        "umc": {
-          "mc": "I",
-          "mo": "E"
-        }
+        "inside": "u"
       }
     ]
   },
   {
-    "cgn": "42S",
-    "el": [
+    "name": "42S",
+    "list": [
       {
-        "me": "SQ",
-        "mec": {
-          "mc": "I",
-          "mo": "E"
-        },
-        "umc": {
-          "mc": "I",
-          "mo": "E"
-        }
+        "inside": "n"
       },
       {
-        "me": "qw.rty",
-        "mec": {
-          "mc": "I",
-          "mo": "R"
-        },
-        "umc": {
-          "mc": "I",
-          "mo": "E"
-        }
+        "inside": "all"
       }
     ]
   },
   {
-    "cgn": "99Q",
-    "el": [
+    "name": "99Q",
+    "list": [
       {
-        "me": "??",
-        "mec": {
-          "mc": "I",
-          "mo": "R"
-        },
-        "umc": {
-          "mc": "I",
-          "mo": "E"
-        }
+        "inside": "does"
+      }
+    ],
+    "ro": [
+      {
+        "name": "rule",
+        "id": "0001",
+        "list": [
+          {
+            "inside": "not"
+          },
+          {
+            "inside": "even"
+          }
+        ]
+      },
+      {
+        "name": "over",
+        "id": "0002",
+        "list": [
+          {
+            "inside": "really"
+          },
+          {
+            "inside": "matter"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "96K",
+    "ro": [
+      {
+        "name": "ride",
+        "id": "0003",
+        "list": [
+          {
+            "inside": "that"
+          },
+          {
+            "inside": "much"
+          }
+        ]
       }
     ]
   }

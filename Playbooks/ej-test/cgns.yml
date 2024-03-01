@@ -1,39 +1,48 @@
 - name: Initialize elem list
   set_fact:
-    new_el: []
+    new_list: []
+    new_ro: []
 
-- name: Loop through first entry elements
+- name: Loop through first entry groups
   include_tasks: els.yml
-  loop: "{{ cgn.el }}"
+  loop: "{{ cgn.list }}"
   loop_control:
     loop_var: elem
-
-- name: Check if entry is in file_2
-  debug:
-    msg: "{{ cgn.cgn }} in file_2"
-  when: cgn.cgn in (file_2 | map(attribute='cgn') )
+  when: "'list' in cgn"
 
 - name: Pull secondary cgn
   ansible.builtin.set_fact:
-    cgn2_idx: "{{ lookup('ansible.utils.index_of', file_2, 'eq', '{{ cgn.cgn }}', 'cgn') }}"
+    cgn2_idx: "{{ lookup('ansible.utils.index_of', cust_2, 'eq', '{{ cgn.name }}', 'name') }}"
 
-- name: Loop through second entry elements
+- name: DEBUGGING {{ cgn.name }}
+  debug:
+    msg: "{{ cgn2_idx }}"
+
+- name: Loop through second entry groups
   include_tasks: els.yml
-  loop: "{{ file_2[cgn2_idx | int].el }}"
+  loop: "{{ cust_2[cgn2_idx | int].list }}"
   loop_control:
     loop_var: elem
   when: cgn2_idx | length > 0
 
+- name: Pull second entry rules
+  set_fact:
+    new_ro: "{{ cust_2[cgn2_idx | int].ro }}"
+  when:
+    - cgn2_idx | length > 0
+    - "'ro' in cust_2[cgn2_idx | int]"
+
 - name: Remove cgn from secondary list
   set_fact:
-    file_2: "{{ file_2 | difference([file_2[cgn2_idx | int]]) }}"
+    cust_2: "{{ cust_2 | difference([cust_2[cgn2_idx | int]]) }}"
   when: cgn2_idx | length > 0
 
 - name: Set new cgn
   set_fact:
     new_cgn:
-      cgn: "{{ cgn.cgn }}"
-      el: "{{ new_el }}"
+      name: "{{ cgn.name }}"
+      list: "{{ new_list }}"
+      ro: "{{ new_ro }}"
 
 - name: Add cgn to full
   set_fact:
